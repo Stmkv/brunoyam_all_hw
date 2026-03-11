@@ -1,6 +1,9 @@
 package repository
 
-import "rest_lesson/internal/model"
+import (
+	"errors"
+	"rest_lesson/internal/model"
+)
 
 type InMemoryTaskRepository struct {
 	tasks []model.Task
@@ -23,4 +26,13 @@ func (r *InMemoryTaskRepository) Create(task model.Task) model.Task {
 	task.ID = len(r.tasks) + 1
 	r.tasks = append(r.tasks, task)
 	return task
+}
+
+func (r *InMemoryTaskRepository) GetById(id int) (model.Task, error) {
+	for _, task := range r.tasks {
+		if task.ID == id {
+			return task, nil
+		}
+	}
+	return model.Task{}, errors.New("task not found")
 }

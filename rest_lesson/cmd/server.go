@@ -22,6 +22,7 @@ func main() {
 	r.GET("/hello", handler.HelloHandler)
 	r.GET("/tasks", taskHandler.GetTasksHandler)
 	r.POST("/task", taskHandler.CreateTaskHandler)
+	r.GET("/task/:id", taskHandler.GetById)
 
 	err := r.Run(":8080")
 	if err != nil {

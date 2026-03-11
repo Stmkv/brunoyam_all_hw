@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"rest_lesson/internal/service"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -34,4 +35,11 @@ func (h *TaskHandler) CreateTaskHandler(c *gin.Context) {
 	task := h.service.CreateTask(req.Title)
 
 	c.JSON(http.StatusCreated, task)
+}
+
+func (h *TaskHandler) GetById(c *gin.Context) {
+	idParam := c.Param("id")
+	id, _ := strconv.Atoi(idParam)   // TODO обработать ошибку
+	task, _ := h.service.GetById(id) // TODO обработать ошибку
+	c.JSON(http.StatusOK, task)
 }
