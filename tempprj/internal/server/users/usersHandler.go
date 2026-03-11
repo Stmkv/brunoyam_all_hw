@@ -22,6 +22,14 @@ func New(userService UserService) *UsersHandler {
 	}
 }
 
+// Login godoc
+// @Summary Авторизация
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param input body usersDomain.LoginRequest true "Login data"
+// @Success 200 {object} usersDomain.User
+// @Router /users/login [post]
 func (h *UsersHandler) Login(ctx *gin.Context) {
 	var req usersDomain.LoginRequest
 
@@ -39,6 +47,14 @@ func (h *UsersHandler) Login(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, user)
 }
 
+// Register godoc
+// @Summary Регистрация
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param input body usersDomain.RegisterRequest true "Register data"
+// @Success 200 {object} map[string]string
+// @Router /users/register [post]
 func (h *UsersHandler) Register(ctx *gin.Context) {
 	var req usersDomain.RegisterRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {

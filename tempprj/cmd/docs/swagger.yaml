@@ -1,0 +1,106 @@
+basePath: /
+definitions:
+  temp-prj_internal_domain_users.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  temp-prj_internal_domain_users.RegisterRequest:
+    properties:
+      age:
+        description: gte === >=
+        minimum: 18
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 8
+        type: string
+      role:
+        type: string
+    required:
+    - age
+    - email
+    - name
+    - password
+    - role
+    type: object
+  temp-prj_internal_domain_users.User:
+    properties:
+      age:
+        type: integer
+      balance:
+        format: float64
+        type: number
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      role:
+        description: 'TODO: сделать enum'
+        type: string
+      uid:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server
+  title: Example API
+  version: "1.0"
+paths:
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Login data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/temp-prj_internal_domain_users.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/temp-prj_internal_domain_users.User'
+      summary: Авторизация
+      tags:
+      - users
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Register data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/temp-prj_internal_domain_users.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Регистрация
+      tags:
+      - users
+swagger: "2.0"
